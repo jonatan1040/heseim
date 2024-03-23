@@ -8,7 +8,12 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
-app.use(cors());
+const corsOptions = {
+  origin: 'https://heseim-3e4f10e0607c.herokuapp.com/',
+  // credentials: true,
+};
+app.use(cors(corsOptions));
+
 // Set up your Google Maps API key
 const apiKey = process.env.API_KEY;
 const client = new Client({});
