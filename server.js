@@ -8,10 +8,22 @@ const { Client } = require('@googlemaps/google-maps-services-js');
 const app = express();
 const port = process.env.PORT || 5000;
 
-const corsOptions = {
-  origin: 'https://heseim-3e4f10e0607c.herokuapp.com/',
-  // credentials: true,
+// Default CORS options for local development
+const corsOptionsLocal = {
+  origin: 'http://localhost:3000', // Assuming your frontend runs on localhost:3000
+  credentials: true, // Enable CORS credentials (cookies, authorization headers, etc.)
 };
+
+// CORS options for live server (production)
+const corsOptionsProd = {
+  origin: 'https://heseim-3e4f10e0607c.herokuapp.com',
+  credentials: true,
+};
+
+// Select CORS options based on environment
+const corsOptions =
+  process.env.NODE_ENV === 'production' ? corsOptionsProd : corsOptionsLocal;
+
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
